@@ -1,0 +1,438 @@
+<title>Imbuhan Ke-an, Per-an, Pe-an</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: soft pastel workbook — header, tab strip, word-card grid per affix, then four practice sheets */
+:root{
+  --bg:#fbf7fb; --paper:#ffffff; --ink:#2f2a45; --muted:#6f6888; --line:#e7dff0;
+  --ke:#e8628f; --ke-soft:#fde4ee;
+  --per:#1f9e93; --per-soft:#dbf4f1;
+  --pe:#7a5ad6; --pe-soft:#ebe4fd;
+  --hl:#fff1a8; --ok:#2f9e5b; --ok-soft:#e1f6e8; --bad:#d6455d; --bad-soft:#fde5e9;
+  --en:#c0392b;
+  --font:"Trebuchet MS","Segoe UI",system-ui,sans-serif;
+  --font-ui:"Segoe UI",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#1c1a26; --paper:#262333; --ink:#efeaf8; --muted:#aaa2c2; --line:#3a3550;
+  --ke:#f58fb0; --ke-soft:#3d2333; --per:#5fd1c5; --per-soft:#183a37; --pe:#ab94f5; --pe-soft:#2e2650;
+  --hl:#5a4f16; --ok:#6ad596; --ok-soft:#1d3a29; --bad:#f2899a; --bad-soft:#41222a; --en:#ff8a7a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1c1a26; --paper:#262333; --ink:#efeaf8; --muted:#aaa2c2; --line:#3a3550;
+  --ke:#f58fb0; --ke-soft:#3d2333; --per:#5fd1c5; --per-soft:#183a37; --pe:#ab94f5; --pe-soft:#2e2650;
+  --hl:#5a4f16; --ok:#6ad596; --ok-soft:#1d3a29; --bad:#f2899a; --bad-soft:#41222a; --en:#ff8a7a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto;padding-block:24px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{display:grid;gap:6px;margin-bottom:18px}
+h1{font-size:clamp(1.7rem,4.5vw,2.5rem);margin:0;line-height:1.15;text-wrap:balance}
+h1 .k{color:var(--ke)} h1 .r{color:var(--per)} h1 .e{color:var(--pe)}
+.en{color:var(--en);font-size:.92em}
+.sub{margin:0;color:var(--muted)}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid var(--pe);outline-offset:2px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 22px;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding-block:8px;z-index:5}
+.tab{border:2px solid var(--line);background:var(--paper);border-radius:999px;padding:6px 14px;font-family:var(--font-ui);font-size:.9rem;display:grid;line-height:1.2;text-align:left}
+.tab small{color:var(--muted);font-size:.72rem}
+.tab[aria-selected="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.tab[aria-selected="true"] small{color:var(--bg);opacity:.75}
+h2{font-size:1.4rem;margin:0}
+.secHead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:10px;margin-bottom:14px}
+.tools{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:2px solid var(--ink);background:var(--paper);border-radius:10px;padding:6px 12px;font-family:var(--font-ui);font-size:.88rem}
+.btn.primary{background:var(--ink);color:var(--bg)}
+.filters{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:2px solid var(--line);background:var(--paper);border-radius:8px;padding:4px 10px;font-weight:bold;font-size:.9rem}
+.chip[aria-pressed="true"].all{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip[aria-pressed="true"].ke{background:var(--ke-soft);border-color:var(--ke);color:var(--ke)}
+.chip[aria-pressed="true"].per{background:var(--per-soft);border-color:var(--per);color:var(--per)}
+.chip[aria-pressed="true"].pe{background:var(--pe-soft);border-color:var(--pe);color:var(--pe)}
+.group{margin-bottom:30px}
+.rule{border-radius:14px;padding:14px 16px;margin-bottom:12px;display:grid;gap:4px;cursor:pointer}
+.rule h3{margin:0;font-size:1.25rem}
+.rule p{margin:0}
+.rule .en{display:none} .rule.open .en{display:block}
+.g-ke .rule{background:var(--ke-soft)} .g-ke h3{color:var(--ke)}
+.g-per .rule{background:var(--per-soft)} .g-per h3{color:var(--per)}
+.g-pe .rule{background:var(--pe-soft)} .g-pe h3{color:var(--pe)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;align-items:start}
+.card{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:12px 14px;text-align:left;display:grid;gap:6px;align-content:start}
+.card:hover{border-color:var(--muted)}
+.rv{display:flex;flex-wrap:wrap;gap:6px}
+.rb{border:2px dashed var(--line);background:var(--bg);border-radius:8px;padding:3px 8px;font-family:var(--font-ui);font-size:.8rem;display:grid;line-height:1.15;text-align:left}
+.rb small{color:var(--muted);font-size:.68rem}
+.rb.on{border-style:solid;border-color:var(--muted)}
+.panel{display:grid;gap:2px;border-top:1px dashed var(--line);padding-top:6px}
+.panel[hidden]{display:none}
+.rootw{font-size:1.1rem}
+.sentbox{cursor:pointer}
+.exEn[hidden],.hint[hidden]{display:none}
+.card{cursor:pointer}
+.sentbox{display:grid;gap:2px;background:var(--bg);border-radius:8px;padding:6px 8px;margin-top:4px}
+.root{font-family:var(--font-ui);font-size:.8rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+.word{font-size:1.35rem;font-weight:bold}
+.aff{border-radius:4px;padding:0 2px}
+.g-ke .aff,.c-ke .aff{color:var(--ke);background:var(--ke-soft)}
+.g-per .aff,.c-per .aff{color:var(--per);background:var(--per-soft)}
+.g-pe .aff,.c-pe .aff{color:var(--pe);background:var(--pe-soft)}
+.tag{justify-self:start;font-family:var(--font-ui);font-size:.72rem;border:1px solid var(--line);border-radius:6px;padding:0 6px;color:var(--muted)}
+.ex{margin:0;font-size:.95rem}
+.reveal{display:none;border-top:1px dashed var(--line);padding-top:6px}
+.card.open .reveal{display:grid;gap:2px}
+.hint{font-family:var(--font-ui);font-size:.75rem;color:var(--muted)}
+.card.open .hint{display:none}
+.note{background:var(--hl);border-radius:12px;padding:12px 16px;margin-top:12px;display:grid;gap:4px;cursor:pointer}
+.note .en{display:none}.note.open .en{display:block}
+.sheet{background:var(--paper);border:2px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:14px}
+.instr{margin:0;display:grid}
+.qlist{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.q{display:grid;gap:6px;padding:10px 12px;border-radius:12px;background:var(--bg)}
+.q .num{font-family:var(--font-ui);font-weight:bold;color:var(--muted);font-variant-numeric:tabular-nums}
+.qa{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.rootbig{font-size:1.2rem;font-weight:bold;min-width:80px}
+.opt{border:2px solid var(--line);background:var(--paper);border-radius:8px;padding:4px 12px;font-weight:bold}
+.opt.ok{background:var(--ok-soft);border-color:var(--ok);color:var(--ok)}
+.opt.no{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.res{font-weight:bold}
+.sent{font-size:1.05rem;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+input[type=text]{font:inherit;color:var(--ink);background:var(--paper);border:2px solid var(--line);border-radius:8px;padding:3px 8px;width:11em;max-width:100%}
+input.ok{border-color:var(--ok);background:var(--ok-soft)}
+input.no{border-color:var(--bad);background:var(--bad-soft)}
+.fb{font-size:.88rem;font-family:var(--font-ui)}
+.fb.ok{color:var(--ok)}.fb.no{color:var(--bad)}
+.sentEn{display:none}.q.open .sentEn{display:block}
+.score{font-family:var(--font-ui);font-weight:bold;font-variant-numeric:tabular-nums;padding:6px 12px;border-radius:10px;background:var(--hl)}
+.match{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px}
+.col{display:grid;gap:8px;align-content:start}
+.m{border:2px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 10px;text-align:left;font-weight:bold;min-width:0;overflow-wrap:anywhere}
+.m.sel{border-color:var(--pe);background:var(--pe-soft)}
+.m.done{border-color:var(--ok);background:var(--ok-soft);color:var(--ok);cursor:default}
+.m.shake{animation:shake .35s;border-color:var(--bad)}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media (prefers-reduced-motion:reduce){.m.shake{animation:none}}
+.m.en-side{font-weight:normal;color:var(--en)}
+</style>
+
+<div class="wrap">
+<header>
+  <h1>Imbuhan <span class="k">ke-an</span>, <span class="r">per-an</span>, <span class="e">pe-an</span></h1>
+  <p class="sub">60 kata sehari-hari + 4 latihan <span class="en">· 60 everyday words + 4 exercises</span></p>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab" role="tab" data-t="daftar" aria-selected="true">Daftar Kata<small>Word List</small></button>
+  <button class="tab" role="tab" data-t="a" aria-selected="false">Latihan A<small>Choose the affix</small></button>
+  <button class="tab" role="tab" data-t="b" aria-selected="false">Latihan B<small>Fill in the blank</small></button>
+  <button class="tab" role="tab" data-t="c" aria-selected="false">Latihan C<small>Find the root</small></button>
+  <button class="tab" role="tab" data-t="d" aria-selected="false">Latihan D<small>Match</small></button>
+</nav>
+
+<section id="daftar">
+  <div class="secHead">
+    <div class="filters" id="filters">
+      <button class="chip all" data-f="all" aria-pressed="true">Semua · All</button>
+      <button class="chip ke" data-f="ke" aria-pressed="false">ke-an</button>
+      <button class="chip per" data-f="per" aria-pressed="false">per-an</button>
+      <button class="chip pe" data-f="pe" aria-pressed="false">pe-an</button>
+    </div>
+    <div class="tools">
+      <button class="btn" id="showAll">Tampilkan terjemahan · Show translations</button>
+    </div>
+  </div>
+  <div id="groups"></div>
+</section>
+
+<section id="a" hidden>
+  <div class="sheet">
+    <div class="secHead"><h2>A. Pilih imbuhan yang benar</h2><span class="score" id="scoreA">0 / 20</span></div>
+    <p class="instr">Klik imbuhan yang cocok untuk kata dasar ini. <span class="en">Click the right affix for each root word.</span></p>
+    <ol class="qlist" id="listA"></ol>
+    <div class="tools"><button class="btn" id="resetA">Ulangi · Reset</button></div>
+  </div>
+</section>
+
+<section id="b" hidden>
+  <div class="sheet">
+    <div class="secHead"><h2>B. Isi titik-titik</h2><span class="score" id="scoreB">0 / 20</span></div>
+    <p class="instr">Tulis bentuk yang benar dari kata dalam kurung. Klik kalimat untuk terjemahan. <span class="en">Write the correct form of the word in brackets. Click a sentence for its translation.</span></p>
+    <ol class="qlist" id="listB"></ol>
+    <div class="tools"><button class="btn primary" id="checkB">Cek jawaban · Check</button><button class="btn" id="ansB">Lihat jawaban · Show answers</button><button class="btn" id="resetB">Ulangi · Reset</button></div>
+  </div>
+</section>
+
+<section id="c" hidden>
+  <div class="sheet">
+    <div class="secHead"><h2>C. Apa kata dasarnya?</h2><span class="score" id="scoreC">0 / 20</span></div>
+    <p class="instr">Tulis kata dasar dari kata berimbuhan ini. <span class="en">Write the root word of each affixed word.</span></p>
+    <ol class="qlist" id="listC"></ol>
+    <div class="tools"><button class="btn primary" id="checkC">Cek jawaban · Check</button><button class="btn" id="ansC">Lihat jawaban · Show answers</button><button class="btn" id="resetC">Ulangi · Reset</button></div>
+  </div>
+</section>
+
+<section id="d" hidden>
+  <div class="sheet">
+    <div class="secHead"><h2>D. Jodohkan</h2><span class="score" id="scoreD">0 / 20</span></div>
+    <p class="instr">Klik kata Indonesia, lalu klik artinya. <span class="en">Click an Indonesian word, then click its meaning.</span></p>
+    <div class="match"><div class="col" id="dLeft"></div><div class="col" id="dRight"></div></div>
+    <div class="tools"><button class="btn" id="resetD">Acak lagi · Shuffle again</button></div>
+  </div>
+</section>
+</div>
+
+<script>
+const W = [
+ // [group, root, prefix, stem, suffix, english, tag, example, exampleEn]
+ ["ke","bersih","ke","bersih","an","cleanliness","benda · noun","Kebersihan kamar mandi itu penting.","Bathroom cleanliness is important."],
+ ["ke","sehat","ke","sehat","an","health","benda · noun","Jaga kesehatan, ya!","Take care of your health!"],
+ ["ke","aman","ke","aman","an","security, safety","benda · noun","Keamanan di perumahan ini bagus.","Security in this housing complex is good."],
+ ["ke","macet","ke","macet","an","traffic jam","benda · noun","Kemacetan di Jakarta parah sekali.","The traffic in Jakarta is really bad."],
+ ["ke","datang","ke","datang","an","arrival","benda · noun","Kedatangan pesawatnya jam tiga sore.","The plane's arrival is at 3 p.m."],
+ ["ke","hujan","ke","hujan","an","caught in the rain","kena · affected by","Saya kehujanan di jalan.","I got caught in the rain on the way."],
+ ["ke","siang","ke","siang","an","oversleep, wake up late","kena · affected by","Aku kesiangan tadi pagi.","I overslept this morning."],
+ ["ke","dingin","ke","dingin","an","feel cold","kena · affected by","Dia kedinginan di dalam bus.","She feels cold on the bus."],
+ ["ke","tinggal","ke","tinggal","an","left behind, miss","kena · affected by","Saya ketinggalan kereta.","I missed the train."],
+ ["ke","hilang","ke","hilang","an","lose, loss","kena · affected by","Dia kehilangan dompet.","He lost his wallet."],
+ ["per","jalan","per","jalan","an","trip, journey","proses · process","Perjalanan ke Bali dua jam.","The trip to Bali takes two hours."],
+ ["per","temu","per","temu","an","meeting","hasil · result","Pertemuan kita hari Senin.","Our meeting is on Monday."],
+ ["per","tanya","per","tanya","an","question","hasil · result","Ada pertanyaan?","Any questions?"],
+ ["per","belanja","per","belanja","an","shopping","tempat · place","Ada pusat perbelanjaan baru.","There's a new shopping centre."],
+ ["per","rumah","pe","rumah","an","housing complex","tempat · place","Saya tinggal di perumahan dekat kantor.","I live in a housing complex near the office."],
+ ["per","ubah","per","ubah","an","change","hasil · result","Ada perubahan jadwal.","There's a change in the schedule."],
+ ["per","cakap","per","cakap","an","conversation","proses · process","Ayo latihan percakapan!","Let's practise conversation!"],
+ ["per","kenal","per","kenal","an","introduction","proses · process","Perkenalan diri dulu, ya.","Introduce yourself first, okay."],
+ ["per","nikah","per","nikah","an","wedding","acara · event","Saya datang ke pernikahan teman.","I'm going to a friend's wedding."],
+ ["per","lomba","per","lomba","an","competition","acara · event","Ada banyak perlombaan tanggal 17 Agustus.","There are many competitions on 17 August."],
+ ["pe","kerja","pe","kerja","an","job, work","hasil · result","Apa pekerjaan Anda?","What is your job?"],
+ ["pe","bayar","pem","bayar","an","payment","proses · process","Pembayaran bisa pakai QRIS.","You can pay with QRIS."],
+ ["pe","pesan","pem","esan","an","booking, order","proses · process","Pemesanan hotel sudah selesai.","The hotel booking is done."],
+ ["pe","kirim","peng","irim","an","delivery, shipping","proses · process","Pengiriman paketnya dua hari.","The parcel delivery takes two days."],
+ ["pe","alam","peng","alam","an","experience","hasil · result","Itu pengalaman yang seru!","That was a fun experience!"],
+ ["pe","umum","peng","umum","an","announcement","hasil · result","Ada pengumuman di bandara.","There's an announcement at the airport."],
+ ["pe","daftar","pen","daftar","an","registration","proses · process","Pendaftaran kursus dibuka hari ini.","Course registration opens today."],
+ ["pe","didik","pen","didik","an","education","hasil · result","Pendidikan itu penting.","Education is important."],
+ ["pe","tukar","pen","ukar","an","exchange","proses · process","Di mana tempat penukaran uang?","Where is the money exchange?"],
+ ["pe","sewa","peny","ewa","an","rental","proses · process","Ada penyewaan motor dekat pantai.","There's a motorbike rental near the beach."],
+ ["ke","cepat","ke","cepat","an","speed","benda · noun","Kecepatan maksimal di jalan tol 100 km per jam.","The maximum speed on the toll road is 100 km per hour."],
+ ["ke","mampu","ke","mampu","an","ability","benda · noun","Kemampuan bahasa Indonesia kamu makin bagus!","Your Indonesian is getting better!"],
+ ["ke","butuh","ke","butuh","an","need, necessity","benda · noun","Air adalah kebutuhan sehari-hari.","Water is a daily necessity."],
+ ["ke","untung","ke","untung","an","profit","benda · noun","Keuntungan tokonya naik bulan ini.","The shop's profit went up this month."],
+ ["ke","indah","ke","indah","an","beauty","benda · noun","Keindahan pantai di Lombok luar biasa.","The beauty of Lombok's beaches is amazing."],
+ ["ke","lapar","ke","lapar","an","starving, very hungry","kena · affected by","Saya kelaparan karena belum makan dari pagi.","I'm starving because I haven't eaten since morning."],
+ ["ke","panas","ke","panas","an","too hot, overheated","kena · affected by","Kami kepanasan di pasar siang ini.","We got too hot at the market this afternoon."],
+ ["ke","banjir","ke","banjir","an","flooded","kena · affected by","Rumah teman saya kebanjiran.","My friend's house got flooded."],
+ ["ke","copet","ke","copet","an","pickpocketed","kena · affected by","Hati-hati, jangan sampai kecopetan di bus!","Be careful not to get pickpocketed on the bus!"],
+ ["ke","malam","ke","malam","an","caught out late at night","kena · affected by","Kami kemalaman di jalan, jadi menginap di hotel.","It got too late on the road, so we stayed at a hotel."],
+ ["per","pustaka","per","pustaka","an","library","tempat · place","Perpustakaan kampus buka sampai jam delapan.","The campus library is open until eight."],
+ ["per","hati","per","hati","an","attention","hasil · result","Terima kasih atas perhatiannya.","Thank you for your attention."],
+ ["per","usaha","per","usaha","an","company","tempat · place","Dia bekerja di perusahaan asing.","He works at a foreign company."],
+ ["per","janji","per","janji","an","agreement, contract","hasil · result","Baca perjanjian sewa rumah dengan teliti.","Read the house rental agreement carefully."],
+ ["per","tunjuk","per","tunjuk","an","show, performance","acara · event","Pertunjukan tari Kecak mulai jam enam sore.","The Kecak dance show starts at 6 p.m."],
+ ["per","empat","per","empat","an","crossroads, intersection","tempat · place","Belok kiri di perempatan kedua.","Turn left at the second intersection."],
+ ["per","tiga","per","tiga","an","T-junction","tempat · place","Rumah saya dekat pertigaan itu.","My house is near that T-junction."],
+ ["per","baik","per","baik","an","repair","proses · process","Jalan ini sedang dalam perbaikan.","This road is under repair."],
+ ["per","minta","per","minta","an","request","hasil · result","Ada permintaan khusus untuk kamarnya?","Any special requests for the room?"],
+ ["per","main","per","main","an","game","hasil · result","Anak-anak suka permainan tradisional.","Children like traditional games."],
+ ["pe","beli","pem","beli","an","purchase","proses · process","Pembelian tiket bisa online.","Tickets can be purchased online."],
+ ["pe","jual","pen","jual","an","sales","proses · process","Penjualan baju naik saat Lebaran.","Clothing sales go up during Lebaran."],
+ ["pe","terbang","pen","erbang","an","flight","proses · process","Penerbangan ke Bali jam tujuh pagi.","The flight to Bali is at 7 a.m."],
+ ["pe","jemput","pen","jemput","an","pick-up","proses · process","Hotel ini punya layanan penjemputan di bandara.","This hotel has an airport pick-up service."],
+ ["pe","inap","peng","inap","an","guesthouse, lodging","tempat · place","Kami menginap di penginapan dekat pantai.","We stayed at a guesthouse near the beach."],
+ ["pe","obat","peng","obat","an","medical treatment","proses · process","Pengobatan di klinik itu tidak mahal.","Treatment at that clinic isn't expensive."],
+ ["pe","buka","pem","buka","an","opening","acara · event","Pembukaan restoran baru hari Sabtu.","The new restaurant opens on Saturday."],
+ ["pe","tunda","pen","unda","an","delay, postponement","proses · process","Ada penundaan penerbangan karena cuaca.","There's a flight delay because of the weather."],
+ ["pe","simpan","peny","impan","an","storage","tempat · place","Taruh koper di tempat penyimpanan.","Put the suitcase in the storage area."],
+ ["pe","potong","pem","otong","an","cut, discount","proses · process","Ada pemotongan harga 50% hari ini.","There's a 50% price cut today."]
+];
+const RULES = {
+  ke:["ke- … -an","Membuat kata benda abstrak (kesehatan), atau artinya “kena / mengalami sesuatu” yang biasanya tidak enak (kehujanan).","Makes abstract nouns (health), or means “to be affected by something”, usually unpleasant (caught in the rain)."],
+  per:["per- … -an","Tempat, hasil, proses, atau acara. Biasanya dari kata kerja ber- (berjalan → perjalanan, bertemu → pertemuan).","A place, result, process or event. Usually linked to ber- verbs (to walk → trip, to meet → meeting)."],
+  pe:["pe- … -an","Proses atau hasil dari kata kerja me- (membayar → pembayaran, mengirim → pengiriman). Bunyi awalannya ikut berubah seperti me-.","The process or result of a me- verb (to pay → payment, to send → delivery). The prefix changes sound just like me-."]
+};
+const $ = s => document.querySelector(s);
+const el = (t,c,h) => {const e=document.createElement(t); if(c) e.className=c; if(h!=null) e.innerHTML=h; return e;};
+const shuffle = a => {a=a.slice(); for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a;};
+const norm = s => s.trim().toLowerCase().replace(/\s+/g," ");
+
+/* Tabs */
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===t));
+  ["daftar","a","b","c","d"].forEach(id=>$("#"+id).hidden = id!==t.dataset.t);
+}));
+
+/* Word list */
+const groups = $("#groups");
+["ke","per","pe"].forEach(g=>{
+  const box = el("div","group g-"+g); box.dataset.g=g;
+  const r = RULES[g];
+  const rule = el("div","rule",`<h3>${r[0]}</h3><p>${r[1]}</p><p class="en">${r[2]}</p><span class="hint">Klik untuk bahasa Inggris · Click for English</span>`);
+  rule.addEventListener("click",()=>rule.classList.toggle("open"));
+  box.append(rule);
+  const grid = el("div","grid");
+  W.filter(w=>w[0]===g).forEach(w=>{
+    const c = el("div","card");
+    c.tabIndex=0; c.setAttribute("role","button");
+    c.innerHTML = `<span class="word">${w[2]+w[3]+w[4]}</span>
+      <span class="hint cardHint">Klik untuk lihat · Click to reveal</span>
+      <div class="panel more" hidden>
+        <span class="root">kata dasar · root word</span>
+        <span><b class="rootw">${w[1]}</b> → <span class="aff">${w[2]}</span>${w[3]}<span class="aff">${w[4]}</span></span>
+        <span class="tag">${w[6]}</span>
+        <span class="en"><b>${w[5]}</b></span>
+        <div class="sentbox"><p class="ex">${w[7]}</p><span class="hint">Klik kalimat untuk arti · Click the sentence for its meaning</span><span class="en exEn" hidden>${w[8]}</span></div>
+      </div>`;
+    const more=c.querySelector(".more"), ch=c.querySelector(".cardHint");
+    const toggle=()=>{more.hidden=!more.hidden; ch.hidden=!more.hidden;};
+    c.addEventListener("click",e=>{ if(!e.target.closest(".sentbox")) toggle(); });
+    c.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();} });
+    const sb=c.querySelector(".sentbox");
+    sb.addEventListener("click",()=>{const e=sb.querySelector(".exEn"); e.hidden=!e.hidden; sb.querySelector(".hint").hidden=!e.hidden;});
+    grid.append(c);
+  });
+  box.append(grid);
+  if(g==="pe"){
+    const n = el("div","note",`<p><b>Perhatikan bunyi awalan pe-an:</b> pem- (bayar), peng- (kirim, alam), pen- (daftar), peny- (sewa). Huruf <b>p, t, s, k</b> luluh: pesan → pe<b>m</b>esanan, tukar → pe<b>n</b>ukaran, sewa → pe<b>ny</b>ewaan.</p><p class="en">Watch the sound of pe-an: it changes like me-. The letters p, t, s, k drop and merge into the prefix. (Click to show/hide English.)</p>`);
+    n.addEventListener("click",()=>n.classList.toggle("open"));
+    box.append(n);
+  }
+  if(g==="per"){
+    const n = el("div","note",`<p><b>Catatan:</b> per + rumah → pe<b>rumah</b>an. Kalau kata dasarnya mulai dengan <b>r</b>, huruf r tidak ditulis dua kali.</p><p class="en">If the root starts with r, the r is not doubled: perumahan, not perrumahan.</p>`);
+    n.addEventListener("click",()=>n.classList.toggle("open"));
+    box.append(n);
+  }
+  groups.append(box);
+});
+document.querySelectorAll(".chip").forEach(ch=>ch.addEventListener("click",()=>{
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",x===ch));
+  document.querySelectorAll(".group").forEach(g=>g.hidden = ch.dataset.f!=="all" && g.dataset.g!==ch.dataset.f);
+}));
+let allOpen=false;
+$("#showAll").addEventListener("click",()=>{
+  allOpen=!allOpen;
+  document.querySelectorAll(".rule,.note").forEach(c=>c.classList.toggle("open",allOpen));
+  document.querySelectorAll(".card .more,.card .exEn").forEach(p=>p.hidden=!allOpen);
+  document.querySelectorAll(".card .hint").forEach(h=>h.hidden=allOpen);
+  $("#showAll").textContent = allOpen ? "Sembunyikan terjemahan · Hide translations" : "Tampilkan terjemahan · Show translations";
+});
+
+/* Latihan A */
+const A = ["bayar","hujan","jalan","kirim","sehat","temu","daftar","tinggal","rumah","pesan","macet","belanja","alam","siang","nikah","didik","aman","cakap","tukar","lomba"];
+const full = w => w[2]+w[3]+w[4];
+const meaningOf = x => (W.find(w=>full(w)===x)||[])[5]||"";
+const byRoot = r => W.find(w=>w[1]===r);
+const label = {ke:"ke-an",per:"per-an",pe:"pe-an"};
+function buildA(){
+  const L=$("#listA"); L.innerHTML=""; let score=0; $("#scoreA").textContent="0 / 20";
+  A.forEach((r,i)=>{
+    const w=byRoot(r);
+    const li=el("li","q");
+    li.innerHTML=`<div class="qa"><span class="num">${i+1}.</span><span class="rootbig">${r}</span></div>`;
+    const row=li.firstChild; const res=el("span","res");
+    let done=false;
+    ["ke","per","pe"].forEach(g=>{
+      const b=el("button","opt",label[g]);
+      b.addEventListener("click",()=>{
+        if(done) return;
+        if(g===w[0]){done=true;b.classList.add("ok");score++;$("#scoreA").textContent=score+" / 20";
+          res.className="res c-"+g; res.innerHTML=`→ <span class="aff">${w[2]}</span>${w[3]}<span class="aff">${w[4]}</span> <span class="en">= ${w[5]}</span>`;
+          const sx=el("div","panel sentbox",`<p class="ex">${w[7]}</p><span class="hint">Klik kalimat untuk arti · Click the sentence for its meaning</span><span class="en exEn" hidden>${w[5]} — ${w[8]}</span>`);
+          sx.addEventListener("click",()=>{const e=sx.querySelector(".exEn"); e.hidden=!e.hidden; sx.querySelector(".hint").hidden=!e.hidden;});
+          li.append(sx);}
+        else{b.classList.add("no");b.disabled=true;}
+      });
+      row.append(b);
+    });
+    row.append(res); L.append(li);
+  });
+}
+buildA(); $("#resetA").addEventListener("click",buildA);
+
+/* Latihan B */
+const B = [
+ ["Maaf, saya terlambat. Saya","siang",".","kesiangan","Sorry, I'm late. I overslept."],
+ ["Di mana tempat","tukar","uang?","penukaran","Where is the money exchange?"],
+ ["Saya tidak bawa payung, jadi saya","hujan",".","kehujanan","I didn't bring an umbrella, so I got caught in the rain."],
+ ["","kirim","paket dari Jakarta ke Surabaya dua hari.","pengiriman","Parcel delivery from Jakarta to Surabaya takes two days."],
+ ["Saya punya","tanya","untuk guru.","pertanyaan","I have a question for the teacher."],
+ ["Aduh, HP saya","tinggal","di taksi!","ketinggalan","Oh no, I left my phone in the taxi!"],
+ ["","macet","di jalan tol sangat parah pagi ini.","kemacetan","The traffic jam on the toll road is terrible this morning."],
+ ["Kami tinggal di","rumah","yang tenang.","perumahan","We live in a quiet housing complex."],
+ ["","bayar","bisa pakai kartu kredit?","pembayaran","Can I pay by credit card?"],
+ ["Liburan ke Lombok adalah","alam","terbaik saya.","pengalaman","The holiday to Lombok is my best experience."],
+ ["Jaga","sehat","kamu, ya!","kesehatan","Take care of your health!"],
+ ["Saya","dingin","karena AC-nya terlalu kencang.","kedinginan","I'm cold because the AC is too strong."],
+ ["","datang","kereta dari Malang terlambat 15 menit.","kedatangan","The arrival of the train from Malang is 15 minutes late."],
+ ["Dia sedih karena","hilang","kucingnya.","kehilangan","She is sad because she lost her cat."],
+ ["","jalan","dari Surabaya ke Malang sekitar dua jam.","perjalanan","The trip from Surabaya to Malang takes about two hours."],
+ ["Kami ada","temu","dengan klien jam sepuluh.","pertemuan","We have a meeting with a client at ten."],
+ ["Teman saya mengundang saya ke","nikah","kakaknya.","pernikahan","My friend invited me to her sister's wedding."],
+ ["Apa","kerja","kamu sekarang?","pekerjaan","What is your job now?"],
+ ["","pesan","tiket bisa lewat aplikasi.","pemesanan","Tickets can be booked through the app."],
+ ["Di dekat pantai ada","sewa","papan selancar.","penyewaan","Near the beach there is a surfboard rental."]
+];
+function buildB(){
+  const L=$("#listB"); L.innerHTML=""; $("#scoreB").textContent="0 / 20";
+  B.forEach((q,i)=>{
+    const li=el("li","q");
+    li.innerHTML=`<div class="sent"><span class="num">${i+1}.</span>${q[0]?`<span>${q[0]}</span>`:""}<input type="text" id="b${i}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="jawaban ${i+1}"><span>(${q[1]})</span><span>${q[2]}</span></div><span class="fb" id="fbb${i}"></span><span class="en sentEn">${q[4]}</span>`;
+    li.addEventListener("click",e=>{ if(e.target.tagName!=="INPUT") li.classList.toggle("open"); });
+    L.append(li);
+  });
+}
+function check(list,prefix,ansIdx,scoreId,fill,mean){
+  let s=0;
+  list.forEach((q,i)=>{
+    const inp=$("#"+prefix+i), fb=$("#fb"+prefix+i), ans=q[ansIdx];
+    if(fill) inp.value=ans;
+    const ok = norm(inp.value)===ans;
+    inp.className = ok?"ok":(inp.value.trim()?"no":"");
+    fb.className="fb "+(ok?"ok":"no");
+    fb.innerHTML = ok ? `Benar! · Correct! <span class="en">${mean(q)}</span>` : (inp.value.trim() ? "Coba lagi · Try again" : "");
+    if(ok) s++;
+  });
+  $(scoreId).textContent = s+" / "+list.length;
+}
+const meanB = q => `${q[3]} = ${meaningOf(q[3])}`;
+const meanC = q => `${q[1]} → ${q[0]} = ${q[2]}`;
+buildB();
+$("#checkB").addEventListener("click",()=>check(B,"b",3,"#scoreB",false,meanB));
+$("#ansB").addEventListener("click",()=>check(B,"b",3,"#scoreB",true,meanB));
+$("#resetB").addEventListener("click",buildB);
+
+/* Latihan C */
+const C = ["pengumuman","percakapan","pemesanan","kehilangan","penyewaan","pernikahan","pendidikan","kedinginan","perubahan","penukaran","kebersihan","perkenalan","pengiriman","keamanan","perlombaan","pembayaran","kesiangan","perbelanjaan","pengalaman","ketinggalan"]
+  .map(x=>{const w=W.find(v=>(v[2]+v[3]+v[4])===x); return [x,w[1],w[5]];});
+function buildC(){
+  const L=$("#listC"); L.innerHTML=""; $("#scoreC").textContent="0 / 20";
+  C.forEach((q,i)=>{
+    const li=el("li","q");
+    li.innerHTML=`<div class="sent"><span class="num">${i+1}.</span><span class="rootbig">${q[0]}</span><span>→</span><input type="text" id="c${i}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="kata dasar ${i+1}"></div><span class="fb" id="fbc${i}"></span>`;
+    L.append(li);
+  });
+}
+buildC();
+$("#checkC").addEventListener("click",()=>check(C,"c",1,"#scoreC",false,meanC));
+$("#ansC").addEventListener("click",()=>check(C,"c",1,"#scoreC",true,meanC));
+$("#resetC").addEventListener("click",buildC);
+
+/* Latihan D */
+const D = [["pertemuan","meeting"],["keamanan","security"],["pendaftaran","registration"],["pekerjaan","job"],["kehujanan","caught in the rain"],["pengiriman","delivery"],["kesiangan","woke up late"],["perjalanan","trip"],["pengumuman","announcement"],["kemacetan","traffic jam"],["pembayaran","payment"],["kesehatan","health"],["perubahan","change"],["pengalaman","experience"],["kehilangan","lose, loss"],["pertanyaan","question"],["penyewaan","rental"],["perlombaan","competition"],["kedinginan","feel cold"],["pendidikan","education"]];
+function buildD(){
+  const Lc=$("#dLeft"), Rc=$("#dRight"); Lc.innerHTML=""; Rc.innerHTML="";
+  let sel=null, s=0; $("#scoreD").textContent="0 / 20";
+  shuffle(D).forEach(p=>{
+    const b=el("button","m",p[0]); b.dataset.k=p[0];
+    b.addEventListener("click",()=>{ if(b.classList.contains("done")) return;
+      Lc.querySelectorAll(".m").forEach(x=>x.classList.remove("sel")); b.classList.add("sel"); sel=b; });
+    Lc.append(b);
+  });
+  shuffle(D).forEach(p=>{
+    const b=el("button","m en-side",p[1]); b.dataset.k=p[0];
+    b.addEventListener("click",()=>{
+      if(!sel || b.classList.contains("done")) return;
+      if(sel.dataset.k===b.dataset.k){ sel.classList.remove("sel"); sel.classList.add("done"); b.classList.add("done"); sel=null; s++; $("#scoreD").textContent=s+" / 20"; }
+      else{ b.classList.remove("shake"); void b.offsetWidth; b.classList.add("shake"); }
+    });
+    Rc.append(b);
+  });
+}
+buildD(); $("#resetD").addEventListener("click",buildD);
+</script>
